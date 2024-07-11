@@ -1,4 +1,4 @@
-package com.asvitzer.planetspotters.data.source
+package com.asvitzer.planetspotters.data.source.remote
 
 import com.asvitzer.planetspotters.data.model.Planet
 

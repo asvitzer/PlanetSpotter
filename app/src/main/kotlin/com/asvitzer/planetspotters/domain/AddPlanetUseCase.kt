@@ -1,12 +1,12 @@
 package com.asvitzer.planetspotters.domain
 
 import com.asvitzer.planetspotters.data.model.Planet
-import com.asvitzer.planetspotters.data.repo.DefaultPlanetsRepository
+import com.asvitzer.planetspotters.data.repo.PlanetsRepository
 import java.util.Date
 import javax.inject.Inject
 
 
-class AddPlanetUseCase @Inject constructor(private val planetsRepository: DefaultPlanetsRepository) {
+class AddPlanetUseCase @Inject constructor(private val planetsRepository: PlanetsRepository) {
     suspend operator fun invoke(planet: Planet) {
         if (planet.name.isEmpty()) {
             throw Exception("Please specify a planet name")
@@ -19,4 +19,5 @@ class AddPlanetUseCase @Inject constructor(private val planetsRepository: Defaul
         }
         planetsRepository.addPlanet(planet)
     }
+
 }
