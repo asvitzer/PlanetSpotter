@@ -7,5 +7,7 @@ data class AddEditPlanetUiState(
     val planetDistanceLy: Float = 1.0F,
     val planetDiscovered: Date = Date(),
     val isLoading: Boolean = false,
-    val isPlanetSaved: Boolean = false
+    val isPlanetSaved: Boolean = false,
+    val isPlanetSaving: Boolean = false,
+    val planetSavingError: Int? = null
 )
