@@ -69,13 +69,14 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
-    val composeBom = platform("androidx.compose:compose-bom:2023.04.01")
+    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
     implementation(composeBom)
     androidTestImplementation(composeBom)
 
     // Compose
     // Material Design 2
-    implementation(libs.androidx.material)
+    //implementation(libs.androidx.material)
+    implementation ("androidx.compose.material:material")
 
     // Android Studio Preview support
     implementation(libs.androidx.ui.tooling.preview)
