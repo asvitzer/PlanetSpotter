@@ -38,19 +38,11 @@ object PlanetsDestinations {
  */
 class PlanetsNavigationActions(private val navController: NavHostController) {
 
-    fun navigateToPlanets(userMessage: Int = 0) {
-        val navigatesFromDrawer = userMessage == 0
-        navController.navigate(
-            PLANETS_SCREEN.let {
-                if (userMessage != 0) "$it?$USER_MESSAGE_ARG=$userMessage" else it
-            }
-        ) {
-            popUpTo(navController.graph.findStartDestination().id) {
-                inclusive = !navigatesFromDrawer
-                saveState = navigatesFromDrawer
-            }
+    fun navigateToPlanets(userMessage: Int) {
+
+        navController.navigate("$PLANETS_SCREEN?$USER_MESSAGE_ARG=$userMessage") {
+            popUpTo(navController.graph.findStartDestination().id)
             launchSingleTop = true
-            restoreState = navigatesFromDrawer
         }
     }
 

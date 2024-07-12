@@ -37,7 +37,7 @@ object RepositoryModule {
     @Provides
     fun providePlanetsRepository(
         localDataSource: LocalDataSource,
-        remoteDataSource: RemoteDataSource
+        remoteDataSource: RemoteDataSource,
     ): PlanetsRepository {
         return DefaultPlanetsRepository(localDataSource, remoteDataSource)
     }

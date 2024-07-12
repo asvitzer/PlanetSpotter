@@ -7,6 +7,7 @@ import com.asvitzer.planetspotters.data.WorkResult
 import com.asvitzer.planetspotters.data.model.Planet
 import com.asvitzer.planetspotters.data.repo.PlanetsRepository
 import com.asvitzer.planetspotters.domain.AddPlanetUseCase
+import com.asvitzer.planetspotters.navigation.PlanetsDestinationsArgs
 import com.asvitzer.planetspotters.ui.model.AddEditPlanetUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +24,7 @@ class AddEditPlanetViewModel @Inject constructor(
     private val planetsRepository: PlanetsRepository,
     private val addPlanetUseCase: AddPlanetUseCase,
 ): ViewModel() {
-    private val planetId: String? = ""//savedStateHandle[PlanetsDestinationsArgs.PLANET_ID_ARG]
+    private val planetId: String? = savedStateHandle[PlanetsDestinationsArgs.PLANET_ID_ARG]
 
     private val _uiState = MutableStateFlow(AddEditPlanetUiState())
     val uiState: StateFlow<AddEditPlanetUiState> = _uiState.asStateFlow()
