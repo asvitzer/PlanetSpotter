@@ -3,6 +3,7 @@ package com.asvitzer.planetspotters.ui.viewmodel
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.asvitzer.planetspotters.R
 import com.asvitzer.planetspotters.data.WorkResult
 import com.asvitzer.planetspotters.data.model.Planet
 import com.asvitzer.planetspotters.data.repo.PlanetsRepository
@@ -67,15 +68,24 @@ class AddEditPlanetViewModel @Inject constructor(
 
     fun savePlanet() {
         viewModelScope.launch {
-            addPlanetUseCase(
-                Planet(
-                    planetId = planetId,
-                    name = _uiState.value.planetName,
-                    distanceLy = uiState.value.planetDistanceLy,
-                    discovered = uiState.value.planetDiscovered
+            try {
+                _uiState.update { it.copy(isPlanetSaving = true) }
+                addPlanetUseCase(
+                    Planet(
+                        planetId = planetId,
+                        name = _uiState.value.planetName,
+                        distanceLy = uiState.value.planetDistanceLy,
+                        discovered = uiState.value.planetDiscovered
+                    )
                 )
-            )
-            _uiState.update { it.copy(isPlanetSaved = true) }
+                _uiState.update { it.copy(isPlanetSaved = true) }
+            }
+            catch (e: Exception) {
+                _uiState.update { it.copy(planetSavingError = R.string.error_saving_planet) }
+            }
+            finally {
+                _uiState.update { it.copy(isPlanetSaving = false) }
+            }
         }
     }
 }
