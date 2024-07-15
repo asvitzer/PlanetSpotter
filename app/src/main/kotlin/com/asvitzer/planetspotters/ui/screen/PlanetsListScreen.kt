@@ -64,16 +64,19 @@ fun PlanetsListScreen(
         }
     ) { paddingValues ->
         Column(modifier = Modifier.padding(paddingValues)) {
-            Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-                Button(onClick = viewModel::refreshPlanetsList) {
+            Row(horizontalArrangement = Arrangement.spacedBy(10.dp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp, vertical = 8.dp)) {
+                Button(onClick = viewModel::refreshPlanetsList,
+                    modifier = Modifier.weight(1f).height(48.dp)) {
                     Text("Refresh")
                 }
-                Button(onClick = viewModel::addSamplePlanets) {
+                Button(onClick = viewModel::addSamplePlanets,
+                    modifier = Modifier.weight(1f).height(48.dp)) {
                     Text("Add sample planets")
                 }
             }
 
-            if (uiState.planets.isEmpty()) {
+            if (uiState.planets.isEmpty() && uiState.isLoading == false) {
                 NoPlanetsInfo()
             }
             else {

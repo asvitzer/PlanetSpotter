@@ -71,10 +71,10 @@ class PlanetsListViewModel @Inject constructor(
         }
     }
 
-    private suspend fun withLoading(block: suspend () -> Unit) {
+    private suspend fun withLoading(runCode: suspend () -> Unit) {
         try {
             addLoadingElement()
-            block()
+            runCode()
         } finally {
             removeLoadingElement()
         }
