@@ -76,7 +76,7 @@ fun PlanetsListScreen(
                 }
             }
 
-            if (uiState.planets.isEmpty() && uiState.isLoading == false) {
+            if (uiState.planets.isEmpty() && !uiState.isLoading) {
                 NoPlanetsInfo()
             }
             else {
