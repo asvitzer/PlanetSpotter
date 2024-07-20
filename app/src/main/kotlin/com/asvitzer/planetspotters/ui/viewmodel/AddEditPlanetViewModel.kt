@@ -1,5 +1,7 @@
 package com.asvitzer.planetspotters.ui.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +10,7 @@ import com.asvitzer.planetspotters.data.WorkResult
 import com.asvitzer.planetspotters.data.model.Planet
 import com.asvitzer.planetspotters.data.repo.PlanetsRepository
 import com.asvitzer.planetspotters.domain.AddPlanetUseCase
+import com.asvitzer.planetspotters.domain.GeneratePlanetDataUseCase
 import com.asvitzer.planetspotters.navigation.PlanetsDestinationsArgs
 import com.asvitzer.planetspotters.ui.model.AddEditPlanetUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +27,7 @@ class AddEditPlanetViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val planetsRepository: PlanetsRepository,
     private val addPlanetUseCase: AddPlanetUseCase,
+    private val generateContentUseCase: GeneratePlanetDataUseCase
 ): ViewModel() {
     private val planetId: String? = savedStateHandle[PlanetsDestinationsArgs.PLANET_ID_ARG]
 

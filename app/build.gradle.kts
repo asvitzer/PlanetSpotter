@@ -89,7 +89,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    // Optional - Integration with ViewModels
+    // Compose Integration with ViewModels
     implementation(libs.lifecycle.viewmodel.compose)
 
     // collectAsStateWithLifecycle()
@@ -99,6 +99,9 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.ktx)
+
+    //Gemini AI
+    implementation(libs.generativeai)
 }
 
 kapt {
