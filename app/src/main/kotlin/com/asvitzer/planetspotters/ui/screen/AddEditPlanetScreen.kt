@@ -1,9 +1,12 @@
 package com.asvitzer.planetspotters.ui.screen
 
+import android.widget.Space
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -11,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ContentAlpha
 import androidx.compose.material.FloatingActionButton
@@ -48,7 +52,8 @@ fun AddEditPlanetScreen(
     scaffoldState: ScaffoldState = rememberScaffoldState(),
     viewModel: AddEditPlanetViewModel = hiltViewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiStatePlanet.collectAsStateWithLifecycle()
+    val uiStateFunFacts by viewModel.uiStateFunFacts.collectAsStateWithLifecycle()
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -61,16 +66,32 @@ fun AddEditPlanetScreen(
             }
         }
     ) { paddingValues ->
-        AddEditPlanetContent(
-            loading = uiState.isLoading,
-            saving = uiState.isPlanetSaving,
-            name = uiState.planetName,
-            distanceLy = uiState.planetDistanceLy,
-            onNameChanged = { newName -> viewModel.setPlanetName(newName) },
-            onDistanceLyChanged = { newDistanceLy -> viewModel.setPlanetDistanceLy(newDistanceLy) },
-            modifier = Modifier.padding(paddingValues)
-        )
+        Column(
+            modifier
+                .fillMaxWidth()
+                .padding(all = 16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            AddEditPlanetContent(
+                loading = uiState.isLoading,
+                saving = uiState.isPlanetSaving,
+                name = uiState.planetName,
+                distanceLy = uiState.planetDistanceLy,
+                onNameChanged = { newName -> viewModel.setPlanetName(newName) },
+                onDistanceLyChanged = { newDistanceLy -> viewModel.setPlanetDistanceLy(newDistanceLy) },
+                modifier = Modifier.padding(paddingValues)
+            )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            PlanetFunFactsContent(
+                uiStateFunFacts.funFacts,
+                uiStateFunFacts.isLoading,
+                uiStateFunFacts.isError,
+                onGenerateFunFacts = { viewModel.getFunFacts() }
+            )
+
+        }
         // Check if the planet is saved and call onPlanetUpdate event
         LaunchedEffect(uiState.isPlanetSaved) {
             if (uiState.isPlanetSaved) {
@@ -101,13 +122,10 @@ private fun AddEditPlanetContent(
 ) {
     if (loading) {
         LoadingContent()
-    }
-    else {
+    } else {
         Column(
             modifier
                 .fillMaxWidth()
-                .padding(all = 16.dp)
-                .verticalScroll(rememberScrollState())
         ) {
             val textFieldColors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Color.Transparent,
@@ -131,11 +149,15 @@ private fun AddEditPlanetContent(
             )
             OutlinedTextField(
                 value = distanceLy.toString(),
-                onValueChange = { try { it.toFloat().run { onDistanceLyChanged(this) }  } catch (_: NumberFormatException) { } },
+                onValueChange = {
+                    try {
+                        it.toFloat().run { onDistanceLyChanged(this) }
+                    } catch (_: NumberFormatException) {
+                    }
+                },
                 label = { Text(stringResource(R.string.distance_label)) },
                 placeholder = { Text(stringResource(R.string.distance_description)) },
                 modifier = Modifier
-                    .height(350.dp)
                     .fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Decimal
@@ -149,6 +171,34 @@ private fun AddEditPlanetContent(
                 CircularProgressIndicator(Modifier.align(Alignment.Center))
             }
         }
+    }
+}
+
+@Composable
+private fun PlanetFunFactsContent(
+    funFacts: String,
+    isLoading: Boolean,
+    isError: Boolean,
+    onGenerateFunFacts: () -> Unit
+) {
+    LoadingButton(text = stringResource(id = R.string.planet_get_facts),
+        isLoading = isLoading,
+        onClick = {
+            onGenerateFunFacts()
+        })
+
+    Spacer(modifier = Modifier.height(16.dp))
+
+    if (isError) {
+        Text(
+            text = stringResource(id = R.string.error_loading_planet_facts),
+            style = MaterialTheme.typography.body1
+        )
+    } else if (funFacts.isNotEmpty()) {
+        Text(
+            text = funFacts,
+            style = MaterialTheme.typography.body1
+        )
     }
 }
 
@@ -169,10 +219,10 @@ private fun LoadingContent(
 @Composable
 fun AddEditContentPreview() {
     AddEditPlanetContent(
-        saving = true,
-        loading = true,
-        name = "aaa",
-        distanceLy = 1.0f,
+        saving = false,
+        loading = false,
+        name = "Proxima Centauri b",
+        distanceLy = 4.37f,
         onNameChanged = {},
         onDistanceLyChanged = {}
     )

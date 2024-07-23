@@ -14,4 +14,6 @@
     <string name="not_reachable_description">Beyond the reach of your lifespan</string>
     <string name="error_loading_planets">An error occurred loading your planets</string>
     <string name="error_saving_planet">Unable to save your planet, please check you have entered all required details</string>
+    <string name="error_loading_planet_facts">Unable to load your fun fact, please try again later</string>
+    <string name="planet_get_facts">"Get some fun facts!"</string>
 </resources>

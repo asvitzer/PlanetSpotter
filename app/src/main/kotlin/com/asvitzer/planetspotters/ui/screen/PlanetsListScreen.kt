@@ -163,6 +163,6 @@ fun PlanetItem(
 @Composable
 fun PlanetPreview() {
     PlanetItem(
-        Planet("", "Hey! owei fjqowfi qoefiqoewf hqeifuhqeiofuqhfuhew fiquefhqirfhqelfjalkhaerlughq;eoifwe;ofiwo;efije;afoiajergoi jerlogi eqroi goeir g", 0.5F, Date()),
+        Planet("", "Proxima Centauri b", 4.37F, Date()),
         { }) { }
 }
