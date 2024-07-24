@@ -4,17 +4,17 @@ An planet spotting app created to test out Android development best practices wi
 
 ## Architecture
 
-Model-View-ViewModel (MVVM)
-Domain Layer with UsesCases
-Repository Pattern
-Dependency Injection
+* Model-View-ViewModel (MVVM)  
+* Domain Layer with UsesCases  
+* Repository Pattern  
+* Dependency Injection  
 
 ## Frameworks
 
-Jetpack Compose
-Compose Navigation
-Hilt
-Coroutines
+* Jetpack Compose  
+* Compose Navigation  
+* Hilt  
+* Coroutines  
 
 ## Requirements
 
@@ -31,4 +31,4 @@ Once you have the key, add this line to the `gradle.properties` file in the proj
 geminiApiKey=<your_actual_api_key>
 ```
 
-The app is still usable without an API key, though you won't be able to look up information on your planet.
+The app is still usable without an API key, though you won't be able to look up fun facts on your planet.
